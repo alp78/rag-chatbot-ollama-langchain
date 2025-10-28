@@ -33,8 +33,8 @@ Follow these steps to set up the project on your local machine.
 **2. Clone the Repository:**
 
 ```bash
-git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
-cd your-repo-name
+git clone https://github.com/alp78/rag-chatbot-ollama-langchain.git
+rag-chatbot-ollama-langchain
 ```
 
 **3. Pull an Ollama LLM:**

@@ -34,7 +34,7 @@ Follow these steps to set up the project on your local machine.
 
 ```bash
 git clone https://github.com/alp78/rag-chatbot-ollama-langchain.git
-rag-chatbot-ollama-langchain
+cd rag-chatbot-ollama-langchain
 ```
 
 **3. Pull an Ollama LLM:**

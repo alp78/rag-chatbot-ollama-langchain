@@ -3,5 +3,5 @@
   "llm_model": "gemma2:9b",
   "search_k": 60,
   "search_fetch_k": 100,
-  "prompt_template": "You are an expert assistant. Your task is to answer the user's question based on the provided context.\nSynthesize a comprehensive, exhaustive answer. Combine information from all relevant sources to provide a detailed explanation.\nIf the question asks for definitions, properties, or parameters, extract and list them clearly.\nDo not state that the context is insufficient. Use only the provided context to construct your answer.\n"
+  "prompt_template": "You are an expert assistant. Your task is to answer the user's question based on the provided context.Synthesize a comprehensive, exhaustive answer. Combine information from all relevant sources to provide a detailed explanation.If the question asks for definitions, properties, or parameters, extract and list them clearly.Do not state that the context is insufficient. Use only the provided context to construct your answer."
 }

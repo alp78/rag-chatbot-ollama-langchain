@@ -4,8 +4,6 @@ This project provides a simple yet powerful Retrieval-Augmented Generation (RAG)
 
 The chatbot uses LangChain to orchestrate the process and Streamlit to provide a user-friendly web interface.
 
-!(https://placehold.co/600x300/F0F0F0/555555?text=Local+RAG+Chatbot+UI)
-
 ## Features
 
 * **Chat with Your Documents:** Ask questions about the content stored in your private collection of PDF and EPUB files.

@@ -78,7 +78,7 @@ The EPUB loader requires Pandoc. Choose **one** of the following methods:
 * **Method B: System-Wide Installation**
     Download and install Pandoc for your operating system from [pandoc.org/installing.html](https://pandoc.org/installing.html). Ensure it's added to your system's PATH during installation (usually the default). You may need to restart your terminal after installing.
 
-## Usage Instructions ▶️
+## Usage Instructions
 
 **1. Add Your Documents:**
 

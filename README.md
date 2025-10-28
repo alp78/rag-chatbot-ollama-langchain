@@ -61,7 +61,8 @@ source .rag/bin/activate
 **5. Install Requirements:**
 
 ```bash
-pip install -r requirements.txt
+python -m pip install --upgrade pip
+pip install langchain langchain-community langchain-core langchain-chroma langchain-ollama langchain-huggingface pymupdf "unstructured[epub]" pypandoc sentence-transformers streamlit
 ```
 
 **6. Install Pandoc (for EPUB processing):**

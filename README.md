@@ -94,8 +94,6 @@ This script processes your documents and builds the local vector database. Run t
 python ingest.py
 ```
 
-* *(This might take some time depending on the number and size of your documents. You'll see processing logs and potentially warnings about TeX math conversion, which can be ignored. A `db` folder will be created.)*
-
 **3. Run the Chatbot App:**
 
 Start the Streamlit web application.

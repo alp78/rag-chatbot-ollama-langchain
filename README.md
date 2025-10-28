@@ -124,7 +124,7 @@ The chatbot is fully configurable through the `settings.json` file.
 
 | Parameter | Type | Default | Description |
 |------------|------|----------|-------------|
-| **`embedding_model`** | string | `"all-MiniLM-L6-v2"` | The sentence-transformer model used to convert text into embeddings. Changing this affects retrieval quality and speed. Larger models produce more accurate embeddings but use more memory. |
+| **`embedding_model`** | string | `"all-MiniLM-L6-v2"` | The sentence-transformer model used to convert text into embeddings. Changing this affects retrieval quality and speed. Larger models produce more accurate embeddings but use more memory. Check here for the list: https://www.sbert.net/docs/sentence_transformer/pretrained_models.html|
 | **`llm_model`** | string | `"gemma2:9b"` | The local LLM used for generating answers. Must be available in your Ollama installation (e.g., `mistral`, `llama3`, `phi3`, etc.). |
 | **`search_type`** | string | `"mmr"` | The retrieval method used to find relevant text chunks. Supported values:<br>• **`"similarity"`** – retrieves the top `k` most similar chunks based on cosine similarity.<br>• **`"mmr"`** – uses *Maximal Marginal Relevance*, which promotes diversity among retrieved chunks. This often reduces redundancy and gives the LLM a wider range of context. |
 | **`search_k`** | integer | `60` | The number of text chunks passed to the LLM as final context. Increasing `k` provides more context but can increase latency or exceed model context limits. |

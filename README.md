@@ -114,6 +114,20 @@ streamlit run app.py
     2.  Update the `LLM_MODEL` variable near the top of `app.py` to match the model name (e.g., `LLM_MODEL = "mistral"`).
 * **Change Embedding Model:** You can change the `EMBEDDING_MODEL` in `app.py` to another sentence-transformer model from Hugging Face if desired (though `all-MiniLM-L6-v2` offers a good balance of speed and quality).
 * **Number of Sources (`k`):** Modify the `search_kwargs={"k": 3}` value in the `get_rag_chain` function in `app.py` to retrieve more or fewer relevant chunks to feed to the LLM.
+* * **Adjust Retrieval Parameters (Number of Sources & Diversity):** In `app.py`, locate the `get_rag_chain` function. Inside it, the retriever is configured:
+    ```python
+    retriever = _vectorstore.as_retriever(
+        search_type="mmr", # Uses Maximal Marginal Relevance for diverse results
+        search_kwargs={
+            "k": 25,        # Number of final documents to send to the LLM
+            "fetch_k": 50   # Number of documents initially fetched for MMR to select from
+        }
+    )
+    ```
+    * **`k`**: Controls how many document chunks are ultimately passed to the LLM as context. Increasing `k` provides more context but increases the chance of exceeding the LLM's context window limit and potentially slows down the LLM response.
+    * **`fetch_k`**: Controls the initial number of documents retrieved based on similarity before the MMR algorithm selects the final `k` diverse documents. `fetch_k` must be greater than or equal to `k`. Increasing `fetch_k` gives MMR more options to choose from, potentially improving diversity, but slightly slows down the retrieval step.
+    * **Experimentation:** You can increase these values (e.g., `"k": 35`, `"fetch_k": 70`) to provide more context to the LLM. Monitor performance and watch for potential context length errors from Ollama. Adjust these values to find the best balance between context richness and performance/stability for your specific model and hardware.
+
 
 ## Technology Stack
 

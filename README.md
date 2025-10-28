@@ -7,7 +7,7 @@ The chatbot uses LangChain to orchestrate the process and Streamlit to provide a
 ## Features
 
 * **Chat with Your Documents:** Ask questions about the content stored in your private collection of PDF and EPUB files.
-* **Local & Private:** All processing happens on your machine. Your documents and queries are never sent to external servers.
+* **Local & Private:** All processing happens on your machine, your documents and queries are never sent to external servers.
 * **Offline Capable:** Once set up, the chatbot runs without an internet connection.
 * **Flexible LLM:** Uses Ollama to run various open-source LLMs locally (defaults to Gemma 2 9B, but easily changeable).
 * **Simple Interface:** Uses Streamlit for an easy-to-use chat interface in your browser.

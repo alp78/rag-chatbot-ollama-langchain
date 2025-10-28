@@ -23,8 +23,6 @@ The chatbot uses LangChain to orchestrate the process and Streamlit to provide a
 
 ## Setup Instructions
 
-Follow these steps to set up the project on your local machine.
-
 **1. Prerequisites:**
 
 * **Python:** Ensure you have Python 3.10 or newer installed.

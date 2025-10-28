@@ -34,7 +34,6 @@ It uses **Ollama** for local LLM inference, **LangChain** for orchestration, and
 
 - Python 3.10 or newer
 - Ollama installed from [ollama.com](https://ollama.com/)
-- Pandoc (for EPUB file support)
 
 ### 2. Clone the Repository
 

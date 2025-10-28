@@ -111,8 +111,7 @@ streamlit run app.py
     1.  Pull the model: `ollama pull model-name`
     2.  Update the `LLM_MODEL` variable near the top of `app.py` to match the model name (e.g., `LLM_MODEL = "mistral"`).
 * **Change Embedding Model:** You can change the `EMBEDDING_MODEL` in `app.py` to another sentence-transformer model from Hugging Face if desired (though `all-MiniLM-L6-v2` offers a good balance of speed and quality).
-* **Number of Sources (`k`):** Modify the `search_kwargs={"k": 3}` value in the `get_rag_chain` function in `app.py` to retrieve more or fewer relevant chunks to feed to the LLM.
-* * **Adjust Retrieval Parameters (Number of Sources & Diversity):** In `app.py`, locate the `get_rag_chain` function. Inside it, the retriever is configured:
+* **Adjust Retrieval Parameters (Number of Sources & Diversity):** In `app.py`, locate the `get_rag_chain` function. Inside it, the retriever is configured:
     ```python
     retriever = _vectorstore.as_retriever(
         search_type="mmr", # Uses Maximal Marginal Relevance for diverse results

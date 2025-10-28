@@ -1,0 +1,7 @@
+{
+  "embedding_model": "all-MiniLM-L6-v2",
+  "llm_model": "gemma2:9b",
+  "search_k": 60,
+  "search_fetch_k": 100,
+  "prompt_template": "You are an assistant for question-answering tasks.Use the following pieces of retrieved context to answer the question.Synthesize an answer based on the information found in the context.If the context doesn't directly state the answer, explain what the context *does* sayand infer a possible answer based on that information.Combine information from multiple sources if necessary.If the context provides no relevant clues at all, indicate that the informationcould not be constructed from the provided documents."
+}

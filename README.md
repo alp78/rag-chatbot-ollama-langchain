@@ -68,7 +68,7 @@ source .rag/bin/activate
 ```bash
 python -m pip install --upgrade pip
 pip install langchain langchain-community langchain-core langchain-chroma langchain-ollama langchain-huggingface pymupdf "unstructured[epub]" pypandoc sentence-transformers streamlit streamlit-local-storage
-pip uninstall torch torchvision torchaudio
+pip uninstall torch
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
 ```
 

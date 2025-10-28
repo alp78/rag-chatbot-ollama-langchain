@@ -3,5 +3,5 @@
   "llm_model": "gemma2:9b",
   "search_k": 60,
   "search_fetch_k": 100,
-  "prompt_template": "You are an assistant for question-answering tasks.Use the following pieces of retrieved context to answer the question.Synthesize an answer based on the information found in the context.If the context doesn't directly state the answer, explain what the context *does* sayand infer a possible answer based on that information.Combine information from multiple sources if necessary.If the context provides no relevant clues at all, indicate that the informationcould not be constructed from the provided documents."
+  "prompt_template": "You are an expert assistant. Your task is to answer the user's question based on the provided context.\nSynthesize a comprehensive, exhaustive answer. Combine information from all relevant sources to provide a detailed explanation.\nIf the question asks for definitions, properties, or parameters, extract and list them clearly.\nDo not state that the context is insufficient. Use only the provided context to construct your answer.\n"
 }

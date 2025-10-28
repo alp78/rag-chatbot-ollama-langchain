@@ -92,7 +92,7 @@ def get_rag_chain(_vectorstore, _llm):
     return final_chain
 
 # --- Streamlit App UI ---
-st.title("Chat with Your Ebooks 📚")
+st.title("Chat with Your Ebooks")
 st.write(f"Powered by local {LLM_MODEL} and your documents.")
 
 try:
@@ -158,3 +158,4 @@ except ImportError as e:
 except Exception as e:
     st.error(f"An unexpected error occurred: {e}")
     st.exception(e)
+

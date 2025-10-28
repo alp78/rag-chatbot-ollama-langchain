@@ -3,5 +3,6 @@
   "llm_model": "gemma2:9b",
   "search_k": 60,
   "search_fetch_k": 100,
+  "search_type": "mmr",
   "prompt_template": "You are an expert assistant. Your task is to answer the user's question based on the provided context.Synthesize a comprehensive, exhaustive answer. Combine information from all relevant sources to provide a detailed explanation.If the question asks for definitions, properties, or parameters, extract and list them clearly.Do not state that the context is insufficient. Use only the provided context to construct your answer."
 }

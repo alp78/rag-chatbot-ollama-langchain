@@ -1,6 +1,6 @@
 # Local RAG Chatbot with Ollama & LangChain
 
-This project provides a simple yet powerful Retrieval-Augmented Generation (RAG) chatbot that runs entirely on your local machine. You can feed it your own collection of PDF and EPUB documents and ask questions about the content using a local Large Language Model hosted by Ollama.
+This project provides a simple yet powerful Retrieval-Augmented Generation (RAG) chatbot that runs entirely on your local machine. You can feed it your own collection of PDF and EPUB documents and ask questions about the content using a local LLM hosted by Ollama.
 
 The chatbot uses LangChain to orchestrate the process and Streamlit to provide a user-friendly web interface.
 

@@ -1,11 +1,9 @@
-# ingest.py
 import os
 from langchain_community.document_loaders import PyMuPDFLoader, UnstructuredEPubLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 
-# Define paths
 EBOOK_FOLDER = "ebooks"
 DB_DIR = "./db"
 
@@ -14,7 +12,7 @@ def load_documents():
     documents = []
     for file in os.listdir(EBOOK_FOLDER):
         file_path = os.path.join(EBOOK_FOLDER, file)
-        
+
         if file.endswith('.pdf'):
             print(f"Loading PDF: {file}")
             loader = PyMuPDFLoader(file_path)
@@ -23,7 +21,7 @@ def load_documents():
             print(f"Loading EPUB: {file}")
             loader = UnstructuredEPubLoader(file_path)
             documents.extend(loader.load())
-            
+
     print(f"Total documents loaded: {len(documents)}")
     return documents
 
@@ -38,16 +36,15 @@ def split_documents(documents):
 def create_vector_store(chunks):
     """Create and persist the vector store."""
     print("Creating embedding model...")
-    # This will download the model (approx. 90MB) on first run
     embedding_function = HuggingFaceEmbeddings(
         model_name="all-MiniLM-L6-v2",
-        model_kwargs={'device': 'cpu'} # Use CPU
+        model_kwargs={'device': 'cuda'} # Use GPU
     )
-    
+
     print("Creating and persisting vector database...")
     # This creates the 'db' folder and stores the vectors
     vectorstore = Chroma.from_documents(
-        documents=chunks, 
+        documents=chunks,
         embedding=embedding_function,
         persist_directory=DB_DIR
     )
@@ -59,7 +56,7 @@ def main():
         chunks = split_documents(docs)
         create_vector_store(chunks)
     else:
-        print("No PDF or EPUB documents found in the 'my_ebooks' folder.")
+        print("No PDF or EPUB documents found in the 'ebooks' folder.")
 
 if __name__ == "__main__":
     main()

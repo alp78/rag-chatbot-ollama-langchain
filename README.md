@@ -100,14 +100,14 @@ Install from [pandoc.org/installing.html](https://pandoc.org/installing.html) an
 
 ### 1. Add Your Documents
 
-Create the `ebooks` folder at the root of the project directory.
+Create the `ebooks` folder in the project root.
 
 ```bash
 mkdir ebooks
 ```
 
 
-Place your `.pdf` and `.epub` files inside the `ebooks` folder in the project root.
+Place your `.pdf` and `.epub` files inside the `ebooks` folder.
 
 ### 2. Ingest Documents
 

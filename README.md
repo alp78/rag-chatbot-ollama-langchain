@@ -56,8 +56,10 @@ ollama pull gemma2:9b
 
 ```bash
 python -m venv .rag
+
 # Activate (Windows)
 .rag\Scripts\activate
+
 # Activate (macOS/Linux)
 source .rag/bin/activate
 ```
@@ -65,10 +67,19 @@ source .rag/bin/activate
 ### 5. Install Dependencies
 
 ```bash
+# upgrade pip before installing packages
 python -m pip install --upgrade pip
-pip install langchain langchain-community langchain-core langchain-chroma langchain-ollama langchain-huggingface pymupdf "unstructured[epub]" pypandoc sentence-transformers streamlit streamlit-local-storage
+
+# install requirements
+pip install -r requirements.txt
+
+# --- Special Steps for NVIDIA GPU Acceleration ---
+# 1. Uninstall any existing CPU-only version
 pip uninstall torch
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
+
+# 2. Install the CUDA-enabled version
+# NOTE: The command below is for CUDA 12.8. Check [https://pytorch.org/get-started/locally/](https://pytorch.org/get-started/locally/) for the command that matches your system.
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
 ```
 
 ### 6. Install Pandoc (for EPUB Support)

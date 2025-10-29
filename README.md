@@ -125,7 +125,7 @@ This processes and indexes all documents in the `ebooks` folder.
 streamlit run app.py
 ```
 
-The app will launch in your browser at [http://localhost:8501](http://localhost:8501) and you start chatting with your data.
+The app will launch in your browser at [http://localhost:8501](http://localhost:8501) and you can start chatting with your data.
 
 ---
 

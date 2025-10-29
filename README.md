@@ -137,8 +137,8 @@ The chatbot is fully configurable through the `settings.json` file.
 | **`embedding_model`** | string | `"all-MiniLM-L6-v2"` | The sentence-transformer model used to convert text into embeddings. Changing this affects retrieval quality and speed. Larger models produce more accurate embeddings but use more memory. Check here for the list: https://www.sbert.net/docs/sentence_transformer/pretrained_models.html |
 | **`llm_model`** | string | `"gemma2:9b"` | The local LLM used for generating answers. Must be available in your Ollama installation (e.g., `mistral`, `llama3`, `phi3`, etc.). Check here for the list: https://ollama.com/library |
 | **`search_type`** | string | `"mmr"` | The retrieval method used to find relevant text chunks. Supported values:<br>• **`"similarity"`** – retrieves the top `k` most similar chunks based on cosine similarity.<br>• **`"mmr"`** – uses *Maximal Marginal Relevance*, which promotes diversity among retrieved chunks. This often reduces redundancy and gives the LLM a wider range of context. |
-| **`search_k`** | integer | `60` | The number of text chunks passed to the LLM as final context. Increasing `k` provides more context but can increase latency or exceed model context limits. |
-| **`search_fetch_k`** | integer | `100` | Used only when `search_type` is `"mmr"`. Determines how many chunks are initially considered before selecting the final `k` diverse ones. Increasing this improves diversity but slightly slows retrieval. |
+| **`search_k`** | integer | `20` | The number of text chunks passed to the LLM as final context. Increasing `k` provides more context but can increase latency or exceed model context limits. |
+| **`search_fetch_k`** | integer | `50` | Used only when `search_type` is `"mmr"`. Determines how many chunks are initially considered before selecting the final `k` diverse ones. Increasing this improves diversity but slightly slows retrieval. |
 | **`prompt_template`** | string | *(long default shown above)* | The base prompt given to the LLM that defines how it should use the context to answer questions. You can modify this to change the assistant’s tone, level of detail, or behavior. |
 
 ### Choosing Between "similarity" and "mmr"
@@ -173,7 +173,8 @@ The chatbot is fully configurable through the `settings.json` file.
 - All processing occurs locally; no external services are used.
 - You can adjust models, retrieval settings, and the prompt without editing Python code.
 - Default settings are optimized for a balance of accuracy, speed, and stability.
-- If you change `settings.json`, restart the app to apply changes.
+- If you changeany parameter else than `embedding_model` in `settings.json`, just restart the app to apply changes.
+- If you change `embedding_model` in the settings, you need to rebuild the vectorstore by running `ingest.py`
 
 ---
 

@@ -13,7 +13,7 @@ It uses **Ollama** for local LLM inference, **LangChain** for orchestration, and
 - **Local and Private:** No cloud services — everything runs locally on your device.
 - **Offline Capable:** Once models are downloaded, no internet connection is required.
 - **Fully Customizable:** Configure model, embedding, search strategy, and prompt directly from `settings.json`.
-- **Flexible LLM Support:** Compatible with any Ollama model (defaults to `gemma2:9b`).
+- **Flexible LLM Support:** Compatible with any Ollama model (defaults to `llama3.1:8b`).
 - **Open Source Stack:** Built entirely with open, privacy-respecting tools.
 
 ---
@@ -47,7 +47,7 @@ cd rag-chatbot-ollama-langchain
 By default, the app uses Google’s Gemma 2 9B model:
 
 ```bash
-ollama pull gemma2:9b
+ollama pull llama3.1:8b
 ```
 
 (You can change the model later in `settings.json`.)
@@ -134,8 +134,8 @@ The chatbot is fully configurable through the `settings.json` file.
 
 | Parameter | Type | Default | Description |
 |------------|------|----------|-------------|
-| **`embedding_model`** | string | `"all-MiniLM-L6-v2"` | The sentence-transformer model used to convert text into embeddings. Changing this affects retrieval quality and speed. Larger models produce more accurate embeddings but use more memory. Check here for the list: https://www.sbert.net/docs/sentence_transformer/pretrained_models.html |
-| **`llm_model`** | string | `"gemma2:9b"` | The local LLM used for generating answers. Must be available in your Ollama installation (e.g., `mistral`, `llama3`, `phi3`, etc.). Check here for the list: https://ollama.com/library |
+| **`embedding_model`** | string | `"all-mpnet-base-v2"` | The sentence-transformer model used to convert text into embeddings. Changing this affects retrieval quality and speed. Larger models produce more accurate embeddings but use more memory. Check here for the list: https://www.sbert.net/docs/sentence_transformer/pretrained_models.html |
+| **`llm_model`** | string | `"llama3.1:8b"` | The local LLM used for generating answers. Must be available in your Ollama installation (e.g., `mistral`, `llama3`, `phi3`, etc.). Check here for the list: https://ollama.com/library |
 | **`search_type`** | string | `"mmr"` | The retrieval method used to find relevant text chunks. Supported values:<br>• **`"similarity"`** – retrieves the top `k` most similar chunks based on cosine similarity.<br>• **`"mmr"`** – uses *Maximal Marginal Relevance*, which promotes diversity among retrieved chunks. This often reduces redundancy and gives the LLM a wider range of context. |
 | **`search_k`** | integer | `20` | The number of text chunks passed to the LLM as final context. Increasing `k` provides more context but can increase latency or exceed model context limits. |
 | **`search_fetch_k`** | integer | `50` | Used only when `search_type` is `"mmr"`. Determines how many chunks are initially considered before selecting the final `k` diverse ones. Increasing this improves diversity but slightly slows retrieval. |
@@ -162,7 +162,7 @@ The chatbot is fully configurable through the `settings.json` file.
 - **Ollama** – runs local LLMs efficiently.
 - **Streamlit** – provides the web chat interface.
 - **ChromaDB** – local vector store for embeddings.
-- **Sentence Transformers** – local embedding model (default: `all-MiniLM-L6-v2`).
+- **Sentence Transformers** – local embedding model (default: `all-mpnet-base-v2`).
 - **PyMuPDF** and **Unstructured** – loaders for PDF and EPUB documents.
 - **Pandoc** – required for EPUB conversion.
 

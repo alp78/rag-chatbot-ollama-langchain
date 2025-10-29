@@ -78,8 +78,9 @@ pip install -r requirements.txt
 pip uninstall torch
 
 # 2. Install the CUDA-enabled version
-# NOTE: The command below is for CUDA 12.8. Check https://pytorch.org/get-started/locally/ for the command that matches your system.
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
+# NThe command below is for CUDA 12.6. confirmed to work with an RTX 3070 Ti Laptop
+# Check https://pytorch.org/get-started/locally/ for the command that matches your system.
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
 ```
 
 ### 6. Install Pandoc (for EPUB Support)

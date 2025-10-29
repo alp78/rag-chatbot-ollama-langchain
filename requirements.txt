@@ -9,6 +9,6 @@ langchain-huggingface
 pymupdf
 unstructured[epub]
 pypandoc
-pypandoc-binary
 sentence-transformers
 hf_xet
+

@@ -139,7 +139,7 @@ The chatbot is fully configurable through the `settings.json` file.
 | **`search_type`** | string | `"mmr"` | The retrieval method used to find relevant text chunks. Supported values:<br>• **`"similarity"`** – retrieves the top `k` most similar chunks based on cosine similarity.<br>• **`"mmr"`** – uses *Maximal Marginal Relevance*, which promotes diversity among retrieved chunks. This often reduces redundancy and gives the LLM a wider range of context. |
 | **`search_k`** | integer | `40` | The number of text chunks passed to the LLM as final context. Increasing `k` provides more context but can increase latency or exceed model context limits. |
 | **`search_fetch_k`** | integer | `150` | Used only when `search_type` is `"mmr"`. Determines how many chunks are initially considered before selecting the final `k` diverse ones. Increasing this improves diversity but slightly slows retrieval. |
-| **`prompt_template`** | string | *(long default shown above)* | The base prompt given to the LLM that defines how it should use the context to answer questions. You can modify this to change the assistant’s tone, level of detail, or behavior. |
+| **`prompt_template`** | string | *(long default in `settings.json`)* | The base prompt given to the LLM that defines how it should use the context to answer questions. You can modify this to change the assistant’s tone, level of detail, or behavior. |
 
 ### Choosing Between "similarity" and "mmr"
 

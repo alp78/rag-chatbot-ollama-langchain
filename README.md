@@ -174,7 +174,7 @@ The chatbot is fully configurable through the `settings.json` file.
 - All processing occurs locally; no external services are used.
 - You can adjust models, retrieval settings, and the prompt without editing Python code.
 - Default settings are optimized for a balance of accuracy, speed, and stability.
-- If you changeany parameter else than `embedding_model` in `settings.json`, just restart the app to apply changes.
+- If you change any parameter else than `embedding_model` in `settings.json`, just restart the app to apply changes.
 - If you change `embedding_model` in the settings, you need to rebuild the vectorstore by running `ingest.py`
 
 ---

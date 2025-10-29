@@ -25,6 +25,7 @@ It uses **Ollama** for local LLM inference, **LangChain** for orchestration, and
 3. **Indexing:** Stores embeddings in a local **ChromaDB** vector database.
 4. **Retrieval:** When you ask a question, the system finds the most relevant text chunks.
 5. **Generation:** Passes the retrieved context and your question to a local LLM (via Ollama) to produce an answer based only on your documents.
+6. **Chats History:** Each new chat is persisted across sessions with a timestamp, they can be deleted directly in the UI.
 
 ---
 

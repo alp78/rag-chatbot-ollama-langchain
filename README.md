@@ -10,6 +10,7 @@ It uses **Ollama** for local LLM inference, **LangChain** for orchestration, and
 ## Features
 
 - **Chat with Your Documents:** Ask natural-language questions about your personal PDF and EPUB files.
+- **Chats History:** Each new chat is persisted across sessions with a timestamp, they can be deleted directly in the UI.
 - **Local and Private:** No cloud services — everything runs locally on your device.
 - **Offline Capable:** Once models are downloaded, no internet connection is required.
 - **Fully Customizable:** Configure model, embedding, search strategy, and prompt directly from `settings.json`.
@@ -25,7 +26,6 @@ It uses **Ollama** for local LLM inference, **LangChain** for orchestration, and
 3. **Indexing:** Stores embeddings in a local **ChromaDB** vector database.
 4. **Retrieval:** When you ask a question, the system finds the most relevant text chunks.
 5. **Generation:** Passes the retrieved context and your question to a local LLM (via Ollama) to produce an answer based only on your documents.
-6. **Chats History:** Each new chat is persisted across sessions with a timestamp, they can be deleted directly in the UI.
 
 ---
 

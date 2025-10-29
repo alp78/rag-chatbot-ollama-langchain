@@ -100,7 +100,7 @@ Install from [pandoc.org/installing.html](https://pandoc.org/installing.html) an
 
 ### 1. Add Your Documents
 
-Create the `ebooks` folder.
+Create the `ebooks` folder at the root of the project directory.
 
 ```bash
 mkdir ebooks

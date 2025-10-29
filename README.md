@@ -78,7 +78,7 @@ pip install -r requirements.txt
 pip uninstall torch
 
 # 2. Install the CUDA-enabled version
-# NOTE: The command below is for CUDA 12.8. Check [https://pytorch.org/get-started/locally/](https://pytorch.org/get-started/locally/) for the command that matches your system.
+# NOTE: The command below is for CUDA 12.8. Check https://pytorch.org/get-started/locally/ for the command that matches your system.
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
 ```
 

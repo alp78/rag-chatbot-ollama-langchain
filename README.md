@@ -44,7 +44,7 @@ cd rag-chatbot-ollama-langchain
 
 ### 3. Pull a Model for Ollama
 
-By default, the app uses Google’s Gemma 2 9B model:
+By default, the app uses Meta’s Llama 3.1:
 
 ```bash
 ollama pull llama3.1:8b

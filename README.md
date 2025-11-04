@@ -84,19 +84,6 @@ pip uninstall torch
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
 ```
 
-### 6. Install Pandoc (for EPUB Support)
-
-**Option A (recommended):**
-
-```bash
-pip install pypandoc-binary
-```
-
-**Option B (manual):**  
-Install from [pandoc.org/installing.html](https://pandoc.org/installing.html) and ensure it’s in your PATH.
-
----
-
 ## Usage Instructions
 
 ### 1. Add Your Documents

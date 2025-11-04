@@ -19,26 +19,28 @@ SETTINGS_FILE = "settings.json"
 try:
     with open(SETTINGS_FILE, 'r') as f:
         settings = json.load(f)
-    EMBEDDING_MODEL = settings.get("embedding_model", "all-MiniLM-L6-v2")
+    EMBEDDING_MODEL = settings.get("embedding_model", "all-mpnet-base-v2")
     print(f"Loaded settings: EMBEDDING_MODEL={EMBEDDING_MODEL}")
 except FileNotFoundError:
     print(f"Warning: {SETTINGS_FILE} not found. Using default embedding model.")
-    EMBEDDING_MODEL = "all-MiniLM-L6-v2"
+    EMBEDDING_MODEL = "all-mpnet-base-v2"
 except json.JSONDecodeError:
     print(f"Warning: Error decoding {SETTINGS_FILE}. Using default embedding model.")
-    EMBEDDING_MODEL = "all-MiniLM-L6-v2"
+    EMBEDDING_MODEL = "all-mpnet-base-v2"
 
 class StderrFilter(io.StringIO):
     """
     Custom stream handler to filter specific warnings from stderr during EPUB processing.
     """
-    def write(self, s):
+    def write(self, s: str) -> int:
         """
         Writes to the stream, skipping lines containing TeX math conversion warnings.
         """
         if "[WARNING] Could not convert TeX math" in s:
-            return
-        super().write(s)
+            # Signal that we "consumed" the string by returning its length
+            return len(s)
+        # Call the parent's write method and return its result (the number of chars written)
+        return super().write(s)
 
 def clean_text_ultra_aggressive(text: str) -> str:
     """
@@ -53,10 +55,10 @@ def clean_text_ultra_aggressive(text: str) -> str:
     for char in text:
         category = unicodedata.category(char)
         if category.startswith(('L', 'N', 'P', 'S', 'M', 'Z')) or char in ('\n', '\r', '\t', ' '):
-             if not (category == 'Cc' and char not in ('\n', '\r', '\t')):
-                 cleaned_chars.append(char)
+            if not (category == 'Cc' and char not in ('\n', '\r', '\t')):
+                cleaned_chars.append(char)
         elif char in ('\x07', '\x08', '\ufffd'):
-             pass
+            pass
 
     cleaned = "".join(cleaned_chars)
 
@@ -101,7 +103,7 @@ def load_documents():
                         doc.metadata["source"] = file_path
                         cleaned_docs.append(doc)
                 else:
-                     print(f"Skipping document part in {file} due to missing/invalid page_content.")
+                    print(f"Skipping document part in {file} due to missing/invalid page_content.")
 
             documents.extend(cleaned_docs)
 
@@ -117,8 +119,8 @@ def split_documents(documents):
     """
     print("Splitting documents into chunks...")
     if not documents:
-         print("No valid documents to split.")
-         return []
+        print("No valid documents to split.")
+        return []
 
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
 
@@ -201,12 +203,11 @@ def main():
     if docs:
         chunks = split_documents(docs)
         if chunks:
-             create_vector_store(chunks)
+            create_vector_store(chunks)
         else:
-             print("Splitting resulted in no valid chunks.")
+            print("Splitting resulted in no valid chunks.")
     elif os.path.exists(EBOOK_FOLDER) and not os.listdir(EBOOK_FOLDER):
-         print(f"The '{EBOOK_FOLDER}' folder is empty. Please add PDF or EPUB files to process.")
+        print(f"The '{EBOOK_FOLDER}' folder is empty. Please add PDF or EPUB files to process.")
 
 if __name__ == "__main__":
     main()
-

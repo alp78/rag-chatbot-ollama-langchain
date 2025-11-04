@@ -21,24 +21,26 @@ LOCAL_STORAGE_KEY_CHATS = "rag_chat_histories"
 # --- Page Config (Set early) ---
 st.set_page_config(layout="wide")
 
+# --- Default Prompt (Define before try block) ---
+DEFAULT_PROMPT = """You are an assistant for question-answering tasks.
+Use the following pieces of retrieved context to answer the question.
+Synthesize a comprehensive, exhaustive answer. Combine information from all relevant sources to provide a detailed explanation.If the question asks for definitions, properties, or parameters, extract and list them clearly.Do not state that the context is insufficient. Use only the provided context to construct your answer."""
+
 # --- Load Settings ---
 try:
     with open(SETTINGS_FILE, 'r') as f:
         settings = json.load(f)
-    EMBEDDING_MODEL = settings.get("embedding_model", "all-MiniLM-L6-v2")
-    LLM_MODEL = settings.get("llm_model", "gemma2:9b")
-    SEARCH_K = settings.get("search_k", 60)
-    SEARCH_FETCH_K = settings.get("search_fetch_k", 100)
-    SEARCH_TYPE = settings.get("search_type", "similarity") 
-    DEFAULT_PROMPT = """You are an assistant for question-answering tasks.
-Use the following pieces of retrieved context to answer the question.
-Synthesize a comprehensive, exhaustive answer. Combine information from all relevant sources to provide a detailed explanation.If the question asks for definitions, properties, or parameters, extract and list them clearly.Do not state that the context is insufficient. Use only the provided context to construct your answer."""
+    EMBEDDING_MODEL = settings.get("embedding_model", "all-mpnet-base-v2")
+    LLM_MODEL = settings.get("llm_model", "llama3.1:8b")
+    SEARCH_K = settings.get("search_k", 40)
+    SEARCH_FETCH_K = settings.get("search_fetch_k", 150)
+    SEARCH_TYPE = settings.get("search_type", "mmr") 
     PROMPT_TEMPLATE_STR = settings.get("prompt_template", DEFAULT_PROMPT)
 except FileNotFoundError:
-    EMBEDDING_MODEL = "all-MiniLM-L6-v2"; LLM_MODEL = "gemma2:9b"; SEARCH_K = 60; SEARCH_FETCH_K = 100; SEARCH_TYPE = "similarity"; PROMPT_TEMPLATE_STR = DEFAULT_PROMPT
+    EMBEDDING_MODEL = "llama3.1:8b"; LLM_MODEL = "llama3.1:8b"; SEARCH_K = 40; SEARCH_FETCH_K = 150; SEARCH_TYPE = "mmr"; PROMPT_TEMPLATE_STR = DEFAULT_PROMPT
 except json.JSONDecodeError:
-    EMBEDDING_MODEL = "all-MiniLM-L6-v2"; LLM_MODEL = "gemma2:9b"; SEARCH_K = 60; SEARCH_FETCH_K = 100; SEARCH_TYPE = "similarity"; PROMPT_TEMPLATE_STR = DEFAULT_PROMPT
-
+    EMBEDDING_MODEL = "llama3.1:8b"; LLM_MODEL = "llama3.1:8b"; SEARCH_K = 40; SEARCH_FETCH_K = 150; SEARCH_TYPE = "mmr"; PROMPT_TEMPLATE_STR = DEFAULT_PROMPT
+# --- End Load Settings ---
 
 # --- Local Storage Initialization ---
 storage = LocalStorage()
@@ -47,14 +49,17 @@ storage = LocalStorage()
 if "state_initialized" not in st.session_state:
     loaded_chats = []
     try:
-        stored_data = storage.getItem(LOCAL_STORAGE_KEY_CHATS)
-        if isinstance(stored_data, list):
-            loaded_chats = [
-                chat for chat in stored_data
-                if isinstance(chat, dict) and 'id' in chat and 'messages' in chat and isinstance(chat['messages'], list)
-            ]
+        # FIX: Load raw string and parse with json.loads
+        stored_data_raw = storage.getItem(LOCAL_STORAGE_KEY_CHATS)
+        if stored_data_raw:
+            stored_data = json.loads(stored_data_raw) # Parse JSON string
+            if isinstance(stored_data, list):
+                loaded_chats = [
+                    chat for chat in stored_data
+                    if isinstance(chat, dict) and 'id' in chat and 'messages' in chat and isinstance(chat['messages'], list)
+                ]
     except Exception as e:
-        pass 
+        pass # Ignore errors during initial load, start fresh
 
     st.session_state.all_chats = loaded_chats
     st.session_state.messages = []
@@ -114,7 +119,8 @@ with st.sidebar:
                         st.session_state.current_chat_id = None
                         st.session_state.messages = []
                     try:
-                        storage.setItem(LOCAL_STORAGE_KEY_CHATS, st.session_state.all_chats)
+                        # FIX: Dump to JSON string before saving
+                        storage.setItem(LOCAL_STORAGE_KEY_CHATS, json.dumps(st.session_state.all_chats))
                         time.sleep(0.5) # Wait 500ms for storage.setItem to likely complete
                     except Exception as e:
                         st.error("Could not delete chat from browser storage.")
@@ -142,7 +148,8 @@ def generate_chat_title(messages: list, llm: OllamaLLM) -> str:
 
 Title:"""
     try:
-        response = llm.invoke(title_prompt, config={'max_tokens': 20})
+        # FIX: Pass max_tokens as a direct keyword argument
+        response = llm.invoke(title_prompt, max_tokens=20)
         title = response.strip().strip('"').strip("'")
         if not title or "summarize" in title.lower() or len(title) > 50 :
              raise ValueError("LLM failed to provide a concise title.")
@@ -249,7 +256,8 @@ def save_or_update_chat(llm_for_title):
             if all_chats[chat_index].get('messages') != messages_to_save:
                 all_chats[chat_index]['messages'] = messages_to_save; all_chats[chat_index]['timestamp'] = datetime.now().timestamp()
                 try:
-                    storage.setItem(LOCAL_STORAGE_KEY_CHATS, all_chats); st.session_state.all_chats = all_chats
+                    # FIX: Dump to JSON string before saving
+                    storage.setItem(LOCAL_STORAGE_KEY_CHATS, json.dumps(all_chats)); st.session_state.all_chats = all_chats
                     saved = True
                 except Exception as e: st.error("Could not update chat in browser storage.")
         else: current_chat_id = None
@@ -261,7 +269,8 @@ def save_or_update_chat(llm_for_title):
                 new_chat = { "id": new_chat_id, "title": new_title, "timestamp": datetime.now().timestamp(), "messages": messages_to_save }
                 st.session_state.all_chats.append(new_chat)
                 st.session_state.current_chat_id = new_chat_id
-                storage.setItem(LOCAL_STORAGE_KEY_CHATS, st.session_state.all_chats);
+                # FIX: Dump to JSON string before saving
+                storage.setItem(LOCAL_STORAGE_KEY_CHATS, json.dumps(st.session_state.all_chats));
                 st.toast(f"Chat saved as '{new_title}'!");
                 needs_rerun = True
                 saved = True
@@ -272,7 +281,7 @@ def save_or_update_chat(llm_for_title):
     return needs_rerun
 
 # --- Main App Logic ---
-st.title("Chat with Your Ebooks")
+st.title(f"{LLM_MODEL}")
 
 # --- Loading Placeholder (Moved AFTER title) ---
 loading_placeholder = st.empty()
@@ -384,6 +393,9 @@ if current_messages and current_messages[-1]["role"] == "user" and st.session_st
 
 # --- Error Handling (Fallback in case components failed to load) ---
 elif 'rag_chain' not in locals() and 'embedding_function' in locals():
+     # This state can be reached if loading is complete but chat input hasn't happened
+     # It's not an error, just the app waiting for input.
      pass
 elif 'embedding_function' not in locals():
+     # This means the initial loading failed and was stopped by st.stop()
      pass
